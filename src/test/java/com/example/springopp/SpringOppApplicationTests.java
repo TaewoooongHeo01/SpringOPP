@@ -8,6 +8,6 @@ class SpringOppApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
 
+	}
 }
