@@ -3,6 +3,7 @@ package com.example.springopp.findBean;
 import com.example.springopp.discount.DiscountPolicy;
 import com.example.springopp.discount.FixDiscountPolicy;
 import com.example.springopp.discount.RateDiscountPolicy;
+import com.example.springopp.singleton.StatefulService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -52,7 +53,7 @@ public class ApplicationContextExtendsFindTest {
         } }
 
     @Configuration
-    static class TestConfig {
+    public static class TestConfig {
         @Bean
         public DiscountPolicy rateDiscountPolicy() {
             return new RateDiscountPolicy();
@@ -60,6 +61,10 @@ public class ApplicationContextExtendsFindTest {
         @Bean
         public DiscountPolicy fixDiscountPolicy() {
             return new FixDiscountPolicy();
+        }
+        @Bean
+        public StatefulService statefulService() {
+            return new StatefulService();
         }
     }
 }

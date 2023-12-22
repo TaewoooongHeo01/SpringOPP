@@ -2,9 +2,13 @@ package com.example.springopp.singleton;
 
 import com.example.springopp.AppConfig;
 import com.example.springopp.SingletonService;
+import com.example.springopp.findBean.ApplicationContextExtendsFindTest;
 import com.example.springopp.member.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,6 +48,37 @@ public class singleton {
         System.out.println("singletonService2" + singletonService2.getCount());
 
         assertThat(singletonService1).isSameAs(singletonService2);
+    }
+
+    @Test
+    @DisplayName("스프링컨테이너 -> 싱글톤패턴")
+    void springContainer() {
+
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        MemberService memberService1 = ac.getBean(MemberService.class);
+
+        MemberService memberService2 = ac.getBean(MemberService.class);
+
+        System.out.println("memberService1" + memberService1);
+        System.out.println("memberService2" + memberService2);
+
+        assertThat(memberService1).isSameAs(memberService2);
+    }
+
+    @Test
+    @DisplayName("싱글톤 패턴을 사용할 시 주의점")
+    void statefulServiceSingleton() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationContextExtendsFindTest.TestConfig.class);
+
+        StatefulService statefulService1 = ac.getBean("statefulService", StatefulService.class);
+        StatefulService statefulService2 = ac.getBean("statefulService", StatefulService.class);
+
+        int price1 = statefulService1.order("memberA", 10000);
+        int price2 = statefulService2.order("memberB", 20000);
+
+        System.out.println("statefulService1 price="+price1);
+        System.out.println("statefulService2 price="+price2);
 
     }
 }
