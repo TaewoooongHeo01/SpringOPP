@@ -1,6 +1,6 @@
 package com.example.springopp.singleton;
 
-import com.example.springopp.AppConfig;
+import com.example.springopp.AutoAppConfig;
 import com.example.springopp.member.MemberRepository;
 import com.example.springopp.member.MemberServiceImpl;
 import com.example.springopp.order.OrderServiceImpl;
@@ -14,7 +14,7 @@ public class ConfigurationSingletonTest {
 
     @Test
     void ConfigurationSingleton() {
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
         MemberServiceImpl memberRepository1 = ac.getBean(MemberServiceImpl.class);
         OrderServiceImpl memberRepository2 = ac.getBean(OrderServiceImpl.class);
         MemberRepository memberRepository = ac.getBean(MemberRepository.class);
@@ -29,8 +29,8 @@ public class ConfigurationSingletonTest {
 
     @Test
     void ConfigurationDeep() {
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
-        AppConfig bean = ac.getBean(AppConfig.class);
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+        AutoAppConfig bean = ac.getBean(AutoAppConfig.class);
         System.out.println(bean.getClass());
     }
 }

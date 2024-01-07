@@ -1,6 +1,6 @@
 package com.example.springopp.singleton;
 
-import com.example.springopp.AppConfig;
+import com.example.springopp.AutoAppConfig;
 import com.example.springopp.SingletonService;
 import com.example.springopp.findBean.ApplicationContextExtendsFindTest;
 import com.example.springopp.member.MemberService;
@@ -18,19 +18,20 @@ public class singleton {
     @DisplayName("스프링 없는 순수한 DI컨테이너(싱글톤 패턴을 적용해야 하는 이유)")
     void pureContianer() {
 
-        AppConfig appConfig = new AppConfig();
+        ApplicationContext appConfig = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+
 
         //객체1. 호출할 때마다 새로운 객체 생성
-        MemberService memberService1 = appConfig.memberService();
+        MemberService memberService1 = appConfig.getBean(MemberService.class);
 
         //객체2. 호출할 때마다 새로운 객체 생성
-        MemberService memberService2 = appConfig.memberService();
+        MemberService memberService2 = appConfig.getBean(MemberService.class);
 
         //참조값이 다른 것을 확인
         System.out.println("memberService1 = " + memberService1);
         System.out.println("memberService2 = " + memberService2);
 
-        assertThat(memberService1).isNotSameAs(memberService2);
+        assertThat(memberService1).isSameAs(memberService2);
     }
 
     @Test
@@ -54,7 +55,7 @@ public class singleton {
     @DisplayName("스프링컨테이너 -> 싱글톤패턴")
     void springContainer() {
 
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
 
         MemberService memberService1 = ac.getBean(MemberService.class);
 

@@ -1,6 +1,6 @@
 package com.example.springopp.order;
 
-import com.example.springopp.AppConfig;
+import com.example.springopp.AutoAppConfig;
 import com.example.springopp.member.Grade;
 import com.example.springopp.member.Member;
 import com.example.springopp.member.MemberService;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class OrderApp {
     public static void main(String[] args) {
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AutoAppConfig.class);
         OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
 
